@@ -1,0 +1,70 @@
+@import '@/app/globals.scss';
+
+aside {
+    min-width: 150px;
+    width: auto;
+    height: 100vh;
+    background-color: var(--bg-color);
+    border-right: solid 1.5px var(--border-main);
+    color: var(--font-main);
+
+    .logo_sect, .social_sect {
+        width: 100%;
+        padding: 25px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo_sect {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-bottom: solid 1.5px var(--border-main);
+
+        img {
+            width: auto;
+            height: 75px;
+        }
+
+        span {
+            font-weight: 800;
+
+            &:first-child {
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    ul {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        a {
+            display: flex;
+            justify-content: center;
+            font-weight: 600;
+            border-top: solid 1.5px var(--border-main);
+            padding: 15px 25px;
+            text-align: center;
+            white-space: nowrap;
+
+            &:last-child {
+                border-bottom: solid 1.5px var(--border-main);
+            }
+
+            &:hover {
+                background-color: #f3f3f3;
+            }
+        }
+    }
+
+    .social_sect {
+        i {
+            width: auto;
+            height: 2rem;
+            font-size: 1.75rem;
+        }
+    }
+}

@@ -1,0 +1,83 @@
+@import '@/app/globals.scss';
+
+header {
+    box-sizing: border-box;
+    width: auto;
+    height: 50px;
+    background-color: var(--bg-color);
+    top: 0;
+    right: 0;
+    padding: 10px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px 0 rgba(#666, 0.2);
+    color: var(--font-main);
+    z-index: 100;
+
+    @media (min-width: 1024px) {
+        right: 50px;
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+.mobile_header {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        height: 40px;
+    }
+
+    button {
+        width: 35px;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &:hover {
+            background-color: #ccc;
+        }
+    }
+}
+
+.desktop_header {
+    gap: 15px;
+
+    .toggle_item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        font-weight: 600;
+
+        i {
+            width: auto;
+            height: 20px;
+        }
+
+        img {
+            width: auto;
+            height: 20px;
+        }
+    }
+
+    hr {
+        width: 2.5px;
+        height: 25px;
+        background-color: var(--font-main);
+        border: none;
+        border-radius: 2.5px;
+    }
+}

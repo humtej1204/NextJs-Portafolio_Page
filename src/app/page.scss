@@ -1,0 +1,19 @@
+main {
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+
+    .main_container {
+        flex: 1 1 auto;
+        height: calc(100vh - 50px);
+        overflow: auto;
+        scroll-behavior: smooth;
+    }
+
+    @media (min-width: 1024px) {
+        .main_container {
+            height: 100vh;
+        }
+    }
+}

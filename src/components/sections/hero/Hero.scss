@@ -1,0 +1,125 @@
+@import '@/app/globals.scss';
+
+.banner_hero {
+    position: relative;
+    padding: 25px 10px;
+    width: 100%;
+    background-color: var(--bg-color);
+    background-image: var(--bg-hero);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--font-main);
+
+    .banner_container {
+        max-width: 1400px;
+        min-width: 300px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+        
+        .img_container {
+            min-width: 280px;
+            max-width: 600px;
+            width: 50%;
+            aspect-ratio: 1;
+            filter: drop-shadow(5px 5px 10px rgba(black, 0.5));
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0% 30%);
+            }
+        }
+    }
+    
+    .info_sect {
+        h1, h2 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--font-mainDark);
+        }
+
+        h1 {
+            overflow: hidden;
+            border-right: 7.5px solid var(--font-mainDark);
+            white-space: nowrap;
+            animation: 
+                typing 2.5s steps(40, end),
+                blink-caret .6s step-end infinite;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        button {
+            width: 250px;
+            margin-top: 50px;
+            padding: 15px 25px;
+            border: 1.5px solid var(--border-main);
+            border-radius: 10px;
+            font-weight: 600;
+            background: var(--bg-color);
+            color: var(--font-main);
+
+            &:hover {
+                background-color: var(--bg-hover);
+            }
+
+            &:active {
+                background-color: var(--bg-active);
+            }
+        }
+    }
+
+    .floating_btn {
+        position: absolute;
+        margin: auto;
+        bottom: 5%;
+        left: auto;
+        right: auto;
+        top: auto;
+        animation: bounce_animation infinite 1s linear;
+
+        i {
+            font-size: 25px;
+            height: 30px;
+            width: auto;
+        }
+    }
+
+    @media (min-width: 576px) {
+        padding: 50px;
+
+        .info_sect {
+            h1, h2 {font-size: 3rem;}
+        }
+    }
+
+    @media (min-width: 1024px) {
+        padding: 0 50px;
+        height: 100vh;
+    }
+}
+
+@keyframes bounce_animation {
+    0% {transform: translateY(0);}
+    25% {transform: translateY(-10px);}
+    50% {transform: translateY(0);}
+    75% {transform: translateY(+10px);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+  
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--font-mainDark); }
+}
