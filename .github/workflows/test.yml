@@ -1,0 +1,25 @@
+# name: Define el nombre del flujo de trabajo
+name: Test Github Actions
+
+# on: Define los eventos que desencadenarán la ejecución del flujo de trabajo
+on:
+  # push: Especifica que el evento es un "push" (confirmación de código).
+  push:
+    # branches: Define las ramas en las que se debe desencadenar el flujo de trabajo.
+    branches:
+      - main
+
+# jobs: Define los trabajos que se ejecutarán como parte de este flujo de trabajo
+jobs:
+  # test_gh_action: Define el nombre del job, puede ser cualquier otro nombre de tu agrado,
+  # pero en este caso elejimos 'test_gh_action'
+  test_gh_action:
+    # runs-on: Especifica que el trabajo se ejecutará en una máquina virtual con el sistema operativo elegido,
+    # en este caso Ubuntu 20.04.
+    runs-on: ubuntu-20.04
+    # steps: Define una secuencia de pasos que se ejecutarán en el trabajo
+    steps:
+      # name: Da un nombre al paso
+      - name: Test Echo
+        # run: Es el comando que se ejecutará en este paso
+        run: echo "Hello Haru"
