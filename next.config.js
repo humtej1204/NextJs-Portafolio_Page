@@ -5,13 +5,11 @@ const nextConfig = {
     sassOptions: {
       includePaths: [path.join(__dirname, 'styles')],
     },
-    exportPathMap: function () { // /Next-React-Components
-        return {
-          "/": { page: "/" },
-          "/ap-grid-layout": { page: "/ap-grid-layout" },
-          "/ap-highlight": { page: "/ap-highlight" },
-        }
-    },
+    output: "export",
+    distDir: "dist",
+    images: {
+      unoptimized: true
+    }
 }
 
 module.exports = nextConfig
