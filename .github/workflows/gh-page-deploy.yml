@@ -1,0 +1,76 @@
+name: Deploy in Github Page
+on:
+  push:
+    branches:
+      - ${{ env.BRANCH_NAME }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone Repository
+      run: |
+        git clone --branch ${{ env.BRANCH_NAME }} --depth 1 https://github.com/usuario/repo.git repo
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Angular App
+      run: npm run build --prod
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+    # - name: Configure Git
+    #   run: |
+    #     git config --global user.email "actions@github.com"
+    #     git config --global user.name "GitHub Actions"
+
+    # - name: Deploy to GitHub Pages
+    #   run: |
+    #     cd repo
+    #     git checkout --orphan gh-pages
+    #     git rm -rf .
+    #     cp -r ../dist/your-angular-app/* .
+    #     git add -A
+    #     git commit -m "Deploy to GitHub Pages"
+    #     git push origin gh-pages --force
+      - name: Setup Pages
+        run: mkdir -p $GITHUB_WORKSPACE/.github && echo "{}" > $GITHUB_WORKSPACE/.github/pages.json
+
+      - name: Restore cache
+        run: |
+          CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+          if [ -e "~/.cache/${CACHE_KEY}" ]; then
+            cp -R ~/.cache/${CACHE_KEY}/.next $GITHUB_WORKSPACE
+          fi
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with Next.js
+        run: npm install run build
+
+      - name: Save cache
+        run: |
+          CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+          mkdir -p ~/.cache/${CACHE_KEY}
+          cp -R $GITHUB_WORKSPACE/.next ~/.cache/${CACHE_KEY}/
+
+      - name: Upload artifact
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/out
+          cp -R $GITHUB_WORKSPACE/.next $GITHUB_WORKSPACE/out
+        working-directory: $GITHUB_WORKSPACE
+        
+      - name: Publish artifact
+        run: gh release create v${{ github.run_number }} out/*
