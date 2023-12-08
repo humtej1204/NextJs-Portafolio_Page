@@ -7,7 +7,7 @@ on:
   push:
     # branches: Define las ramas en las que se debe desencadenar el flujo de trabajo.
     branches:
-      - main
+      - ${{ env.BRANCH_NAME }}
 
 # jobs: Define los trabajos que se ejecutarán como parte de este flujo de trabajo
 jobs:
@@ -22,4 +22,4 @@ jobs:
       # name: Da un nombre al paso
       - name: Test Echo
         # run: Es el comando que se ejecutará en este paso
-        run: echo "Hello Haru"
+        run: echo "Hello Haru ${{ env.BRANCH_NAME }}"
