@@ -51,7 +51,6 @@ jobs:
 
     - name: Deploy to GitHub Pages
       run: |
-        git remote set-url origin git@github.com:humtej1204/NextJs-Portafolio_Page.git
         git checkout --orphan gh-pages
         git rm -rf .
         mv dist/* .
