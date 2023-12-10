@@ -31,7 +31,7 @@ jobs:
       run: npm install
 
     - name: Build with Next.js
-      run: npm install run build
+      run: npm run build
 
     - name: Save cache
       run: |
