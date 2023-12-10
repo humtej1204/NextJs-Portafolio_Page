@@ -50,6 +50,8 @@ jobs:
         git config --global user.name "GitHub Actions"
 
     - name: Deploy to GitHub Pages
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git checkout --orphan gh-pages
         git rm -rf .
@@ -57,6 +59,6 @@ jobs:
         rm -rf node_modules dist
         git add -A
         git commit -m "Deploy to GitHub Pages"
-        echo {GH_TOKEN}
-        git remote set-url origin https://humtej1204:{GH_TOKEN}@github.com/humtej1204/project.git
+        echo $GH_TOKEN
+        git remote set-url origin https://humtej1204:${{ env.GH_TOKEN }}@github.com/humtej1204/project.git
         git push origin gh-pages --force
