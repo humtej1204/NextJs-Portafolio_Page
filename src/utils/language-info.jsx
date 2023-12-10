@@ -51,7 +51,7 @@ export const PageInfo = {
         },
         projects_sect: {
             tittle: 'Projects',
-            projects: PROJECTS_LIST
+            projects: PROJECTS_LIST('EN')
         },
         footer: {}
     },
@@ -104,7 +104,7 @@ export const PageInfo = {
         },
         projects_sect: {
             tittle: 'Proyectos',
-            projects: PROJECTS_LIST
+            projects: PROJECTS_LIST('ES')
         },
         footer: {}
     }
