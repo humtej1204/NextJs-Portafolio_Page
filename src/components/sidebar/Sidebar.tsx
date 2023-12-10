@@ -11,7 +11,7 @@ export default function Sidebar() {
     return (
         <aside className='hidden lg:flex flex-col justify-between items-center'>
             <div className='logo_sect justify-center'>
-                <img src={`/assets/LOGO.svg`} />
+                <img src={`assets/LOGO.svg`} />
                 <span>Haru Dev</span>
             </div>
 

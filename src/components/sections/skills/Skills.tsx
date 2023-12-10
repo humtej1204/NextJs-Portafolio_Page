@@ -24,7 +24,7 @@ export default function SkillsSection() {
                             key={`pLang_${elem.key}`}>
                                 <div className='img_container'>
                                     <Image
-                                    src={`/assets/programming_lang/${elem.key}.svg`}
+                                    src={`assets/programming_lang/${elem.key}.svg`}
                                     alt={`pLang_${elem.label}`}
                                     width={0}
                                     height={0}

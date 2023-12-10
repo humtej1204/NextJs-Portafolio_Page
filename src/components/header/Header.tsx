@@ -42,7 +42,7 @@ export default function Header() {
   return (
     <header className='lg:absolute'>
       <div className='mobile_header flex lg:hidden'>
-        <img src={`/assets/LOGO.svg`} />
+        <img src={`assets/LOGO.svg`} />
 
         <button>
           <i className="fi fi-br-menu-burger"></i>
@@ -50,12 +50,12 @@ export default function Header() {
       </div>
       <div className='desktop_header hidden lg:flex'>
         <div className='toggle_item'>
-          <img src={'/assets/EN.png'} alt="EN_Image" />
+          <img src={'assets/EN.png'} alt="EN_Image" />
           <Toggle values={['EN', 'ES']}
           getValue={handleLangData}
           setValue={lang}
           />
-          <img src={'/assets/ES.png'} alt="ES_Image" />
+          <img src={'assets/ES.png'} alt="ES_Image" />
         </div>
         <hr />
         <div className='toggle_item'>

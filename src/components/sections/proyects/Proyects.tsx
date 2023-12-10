@@ -38,7 +38,7 @@ function ProyectCard({data}: any) {
                 repo={data.repo}
                 />
             </div>
-            <img src={`/assets/projects/${data.key}.webp`} alt="test" />
+            <img src={`assets/projects/${data.key}.webp`} alt="test" />
             <div className='pCard_cont'>
                 <p>{data.description}</p>
 
@@ -47,7 +47,7 @@ function ProyectCard({data}: any) {
                         <div className='tech_item'
                         key={index}>
                             <Image
-                            src={`/assets/programming_lang/${elem}.svg`}
+                            src={`assets/programming_lang/${elem}.svg`}
                             alt={elem}
                             width={25}
                             height={25} />

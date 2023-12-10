@@ -52,7 +52,7 @@ export default function PersonalInfo() {
                         <div className='langs_items'>
                             {contact_sect?.langData.langs.map((elem) => (
                                 <div className='langs_item' key={elem.key}>
-                                    <img src={`/assets/${elem.key}.png`} alt={`${elem.key}_icon`} />
+                                    <img src={`assets/${elem.key}.png`} alt={`${elem.key}_icon`} />
                                     <span>{elem.label}</span>
                                 </div>
                             ))}
