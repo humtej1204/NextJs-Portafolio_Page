@@ -13,34 +13,10 @@ jobs:
       run: |
         git clone --branch main --depth 1 https://github.com/humtej1204/NextJs-Portafolio_Page.git repo
 
-    # - name: Detect package manager
-    #   id: detect-package-manager
-    #   run: |
-    #     if [ -f "${{ github.workspace }}/yarn.lock" ]; then
-    #       echo "manager=yarn" >> $GITHUB_OUTPUT
-    #       echo "command=install" >> $GITHUB_OUTPUT
-    #       echo "runner=yarn" >> $GITHUB_OUTPUT
-    #       exit 0
-    #     elif [ -f "${{ github.workspace }}/package.json" ]; then
-    #       echo "manager=npm" >> $GITHUB_OUTPUT
-    #       echo "command=ci" >> $GITHUB_OUTPUT
-    #       echo "runner=npx --no-install" >> $GITHUB_OUTPUT
-    #       exit 0
-    #     else
-    #       echo "Unable to determine package manager"
-    #       exit 1
-    #     fi
-
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: 20
-
-    # - name: Install dependencies
-    #   run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-
-    # - name: Build with Next.js
-    #   run: ${{ steps.detect-package-manager.outputs.runner }} next build
 
     - name: Setup Pages
       run: mkdir -p $GITHUB_WORKSPACE/.github && echo "{}" > $GITHUB_WORKSPACE/.github/pages.json
@@ -53,7 +29,9 @@ jobs:
         fi
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd $GITHUB_WORKSPACE
+        npm install
 
     - name: Build with Next.js
       run: npm install run build
