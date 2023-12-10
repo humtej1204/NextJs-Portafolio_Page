@@ -59,6 +59,6 @@ jobs:
         rm -rf node_modules dist
         git add -A
         git commit -m "Deploy to GitHub Pages"
-        echo $GH_TOKEN
+        echo "GH_TOKEN: $GH_TOKEN"
         git remote set-url origin https://humtej1204:${{ env.GH_TOKEN }}@github.com/humtej1204/project.git
         git push origin gh-pages --force
