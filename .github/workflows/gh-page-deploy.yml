@@ -13,66 +13,113 @@ jobs:
       run: |
         git clone --branch main --depth 1 https://github.com/humtej1204/NextJs-Portafolio_Page.git repo
 
+    # - name: Detect package manager
+    #   id: detect-package-manager
+    #   run: |
+    #     if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+    #       echo "manager=yarn" >> $GITHUB_OUTPUT
+    #       echo "command=install" >> $GITHUB_OUTPUT
+    #       echo "runner=yarn" >> $GITHUB_OUTPUT
+    #       exit 0
+    #     elif [ -f "${{ github.workspace }}/package.json" ]; then
+    #       echo "manager=npm" >> $GITHUB_OUTPUT
+    #       echo "command=ci" >> $GITHUB_OUTPUT
+    #       echo "runner=npx --no-install" >> $GITHUB_OUTPUT
+    #       exit 0
+    #     else
+    #       echo "Unable to determine package manager"
+    #       exit 1
+    #     fi
+
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20
 
-    - name: Install Dependencies
+    # - name: Install dependencies
+    #   run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+
+    # - name: Build with Next.js
+    #   run: ${{ steps.detect-package-manager.outputs.runner }} next build
+
+    - name: Setup Pages
+      run: mkdir -p $GITHUB_WORKSPACE/.github && echo "{}" > $GITHUB_WORKSPACE/.github/pages.json
+
+    - name: Restore cache
       run: |
-        ls
-        npm install
+        CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+        if [ -e "~/.cache/${CACHE_KEY}" ]; then
+          cp -R ~/.cache/${CACHE_KEY}/.next $GITHUB_WORKSPACE
+        fi
 
-    - name: Build Angular App
-      run: npm run build --prod
+    - name: Install dependencies
+      run: npm install
 
-  deploy:
-    runs-on: ubuntu-latest
+    - name: Build with Next.js
+      run: npm install run build
 
-    needs: build
+    - name: Save cache
+      run: |
+        CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+        mkdir -p ~/.cache/${CACHE_KEY}
+        cp -R $GITHUB_WORKSPACE/.next ~/.cache/${CACHE_KEY}/
 
-    steps:
-    # - name: Configure Git
-    #   run: |
-    #     git config --global user.email "actions@github.com"
-    #     git config --global user.name "GitHub Actions"
+    - name: Upload artifact
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/out
+        cp -R $GITHUB_WORKSPACE/.next $GITHUB_WORKSPACE/out
+      working-directory: $GITHUB_WORKSPACE
+      
+    - name: Publish artifact
+      run: gh release create v${{ github.run_number }} out/*
 
-    # - name: Deploy to GitHub Pages
-    #   run: |
-    #     cd repo
-    #     git checkout --orphan gh-pages
-    #     git rm -rf .
-    #     cp -r ../dist/your-angular-app/* .
-    #     git add -A
-    #     git commit -m "Deploy to GitHub Pages"
-    #     git push origin gh-pages --force
-      - name: Setup Pages
-        run: mkdir -p $GITHUB_WORKSPACE/.github && echo "{}" > $GITHUB_WORKSPACE/.github/pages.json
+  # deploy:
+  #   runs-on: ubuntu-latest
 
-      - name: Restore cache
-        run: |
-          CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
-          if [ -e "~/.cache/${CACHE_KEY}" ]; then
-            cp -R ~/.cache/${CACHE_KEY}/.next $GITHUB_WORKSPACE
-          fi
+  #   needs: build
 
-      - name: Install dependencies
-        run: npm install
+  #   steps:
+      # - name: Configure Git
+      #   run: |
+      #     git config --global user.email "actions@github.com"
+      #     git config --global user.name "GitHub Actions"
 
-      - name: Build with Next.js
-        run: npm install run build
+      # - name: Deploy to GitHub Pages
+      #   run: |
+      #     cd repo
+      #     git checkout --orphan gh-pages
+      #     git rm -rf .
+      #     cp -r ../dist/your-angular-app/* .
+      #     git add -A
+      #     git commit -m "Deploy to GitHub Pages"
+      #     git push origin gh-pages --force
+      # - name: Setup Pages
+      #   run: mkdir -p $GITHUB_WORKSPACE/.github && echo "{}" > $GITHUB_WORKSPACE/.github/pages.json
 
-      - name: Save cache
-        run: |
-          CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
-          mkdir -p ~/.cache/${CACHE_KEY}
-          cp -R $GITHUB_WORKSPACE/.next ~/.cache/${CACHE_KEY}/
+      # - name: Restore cache
+      #   run: |
+      #     CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+      #     if [ -e "~/.cache/${CACHE_KEY}" ]; then
+      #       cp -R ~/.cache/${CACHE_KEY}/.next $GITHUB_WORKSPACE
+      #     fi
 
-      - name: Upload artifact
-        run: |
-          mkdir -p $GITHUB_WORKSPACE/out
-          cp -R $GITHUB_WORKSPACE/.next $GITHUB_WORKSPACE/out
-        working-directory: $GITHUB_WORKSPACE
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build with Next.js
+      #   run: npm install run build
+
+      # - name: Save cache
+      #   run: |
+      #     CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
+      #     mkdir -p ~/.cache/${CACHE_KEY}
+      #     cp -R $GITHUB_WORKSPACE/.next ~/.cache/${CACHE_KEY}/
+
+      # - name: Upload artifact
+      #   run: |
+      #     mkdir -p $GITHUB_WORKSPACE/out
+      #     cp -R $GITHUB_WORKSPACE/.next $GITHUB_WORKSPACE/out
+      #   working-directory: $GITHUB_WORKSPACE
         
-      - name: Publish artifact
-        run: gh release create v${{ github.run_number }} out/*
+      # - name: Publish artifact
+      #   run: gh release create v${{ github.run_number }} out/*
