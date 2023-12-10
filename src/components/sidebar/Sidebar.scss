@@ -55,7 +55,8 @@ aside {
             }
 
             &:hover {
-                background-color: #f3f3f3;
+                color: var(--font-hover-dark);
+                background-color: var(--bg-hover-dark);
             }
         }
     }

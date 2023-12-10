@@ -61,7 +61,7 @@ export default function PersonalInfo() {
 
                     <div className='action_btns'>
                         <a className='btn'
-                        href={`/assets/files/Humberto_Tejada-${selectedLang}.pdf`}
+                        href={`assets/files/Humberto_Tejada-${selectedLang}.pdf`}
                         download={`Humberto_Tejada.pdf`}>
                             {contact_sect.buttons[0]}
                         </a>
