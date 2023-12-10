@@ -6,11 +6,12 @@ import {TEC_LANGS} from '@/utils/tec-langs-info';
 import { LangContext } from '@/context/langContext/LangContext';
 import { PageInfo } from '@/utils/language-info';
 
+
 export default function SkillsSection() {
     const {lang} = useContext(LangContext);
     const selectedLang: 'EN' | 'ES' = lang;
     const {skills_sect} = PageInfo[selectedLang];
-    
+
     return (
         <div className='skills_section container_sect' id="skills_section">
             <div className='section_container skills_container flex flex-col lg:flex-row'>
