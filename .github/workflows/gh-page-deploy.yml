@@ -11,6 +11,7 @@ jobs:
     steps:
     - name: Clone Repository
       run: |
+        pwd
         git clone --branch main --depth 1 https://github.com/humtej1204/NextJs-Portafolio_Page.git repo
 
     - name: Set up Node.js
@@ -30,11 +31,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd $GITHUB_WORKSPACE
+        pwd
         npm install
 
     - name: Build with Next.js
       run: npm install run build
+      working-directory: $GITHUB_WORKSPACE
 
     - name: Save cache
       run: |
