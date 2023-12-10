@@ -38,14 +38,10 @@ jobs:
         CACHE_KEY=$(echo ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }})
         mkdir -p ~/.cache/${CACHE_KEY}
         cp -R $GITHUB_WORKSPACE/.next ~/.cache/${CACHE_KEY}/
-
-    # - name: Upload artifact
-    #   run: |
-    #     mkdir -p $GITHUB_WORKSPACE/out
-    #     cp -R $GITHUB_WORKSPACE/.next $GITHUB_WORKSPACE/out
-    #   working-directory: $GITHUB_WORKSPACE
       
     - name: Publish artifact
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: gh release create v${{ github.run_number }} dist/*
 
   # deploy:
