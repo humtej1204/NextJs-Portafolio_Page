@@ -2,7 +2,7 @@ name: Deploy in Github Page
 on:
   push:
     branches:
-      - ${{ env.BRANCH_NAME }}
+      - main
 
 jobs:
   build:
