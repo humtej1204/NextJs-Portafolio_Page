@@ -19,7 +19,9 @@ jobs:
         node-version: 20
 
     - name: Install Dependencies
-      run: npm install
+      run: |
+        ls
+        npm install
 
     - name: Build Angular App
       run: npm run build --prod
