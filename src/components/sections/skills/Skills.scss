@@ -105,7 +105,8 @@
 
     &::-webkit-scrollbar {
         width: 10px;
-        background-color: white;
+        background-color: rgba(#fff, 0.25);
+        border-radius: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
